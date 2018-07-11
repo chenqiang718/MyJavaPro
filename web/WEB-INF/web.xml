@@ -25,10 +25,6 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 <!--*************************************-->
-    <context-param>
-        <param-name></param-name>
-        <param-value></param-value>
-    </context-param>
     <filter>
         <filter-name>charactorFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
