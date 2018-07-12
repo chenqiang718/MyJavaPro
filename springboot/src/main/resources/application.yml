@@ -1,0 +1,12 @@
+student:
+    name: ³ÂÇ¿lalala
+    age: "18"
+spring:
+  http:
+    encoding:
+      charset: utf-8
+      enabled: true
+      force: true
+server:
+  tomcat:
+    uri-encoding: UTF-8
