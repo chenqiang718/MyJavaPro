@@ -1,7 +1,11 @@
 student:
-    name: ³ÂÇ¿lalala
+    name: é™ˆå¼º
     age: "18"
 spring:
+  mvc:
+    view:
+      prefix: views/
+      suffix: .jsp
   http:
     encoding:
       charset: utf-8

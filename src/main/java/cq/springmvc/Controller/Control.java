@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@RestController
+@Controller
 public class Control {
     private static Logger logger= Logger.getLogger(Control.class);
     @Autowired
@@ -27,6 +27,7 @@ public class Control {
         return "Hello";
     }
 
+    @ResponseBody
     @RequestMapping("/getUser")
     public String getAllUser(HttpServletRequest request, HttpServletResponse response){
         response.setHeader("Content-type", "text/html;charset=UTF-8");
@@ -37,5 +38,10 @@ public class Control {
         }
         System.out.println(sb.toString());
         return sb.toString();
+    }
+
+    @RequestMapping("/Hello")
+    public String HelloWorld(){
+        return  "HelloWorld";
     }
 }
