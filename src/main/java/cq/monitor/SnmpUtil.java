@@ -1,54 +1,110 @@
 package cq.monitor;
 
-import org.snmp4j.CommunityTarget;
-import org.snmp4j.PDU;
-import org.snmp4j.Snmp;
-import org.snmp4j.TransportMapping;
+import org.slf4j.LoggerFactory;
+import org.snmp4j.*;
 import org.snmp4j.event.ResponseEvent;
 import org.snmp4j.event.ResponseListener;
+import org.snmp4j.mp.MPv1;
+import org.snmp4j.mp.MPv2c;
+import org.snmp4j.mp.MPv3;
 import org.snmp4j.mp.SnmpConstants;
+import org.snmp4j.security.SecurityModels;
+import org.snmp4j.security.SecurityProtocols;
+import org.snmp4j.security.USM;
 import org.snmp4j.smi.*;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
 import org.snmp4j.util.MultiThreadedMessageDispatcher;
 import org.snmp4j.util.ThreadPool;
-import java.io.IOException;
-import java.util.List;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Snmp协议get,set,walk命令工具类
+ * @author chenqiang
+ * @date 2018/7/19
+ */
 public class SnmpUtil {
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(SnmpUtil.class);
+    private static Map<String,Snmp> snmpMap=new HashMap<>();
     private Snmp snmp=null;
     private Address listenAddress=null;
     private ThreadPool threadPool=null;
     private MultiThreadedMessageDispatcher dispatcher=null;
-    private static String agentIP="127.0.0.1";
+    private String agentIP;//代理地址
 
-    public void init() throws IOException {
+    public SnmpUtil(){
+        this("127.0.0.1");
+    };
+
+    public SnmpUtil(String agentIP){
+        this.agentIP=agentIP;
         listenAddress=GenericAddress.parse(System.getProperty(
                 "snmp4j.listenAddress", "udp:"+agentIP+"/161"));
-        TransportMapping transportMapping=new DefaultUdpTransportMapping();
-        snmp=new Snmp(transportMapping);
-        snmp.listen();
-        System.out.println("基本信息开始监听...");
     }
 
-    protected ResponseEvent send(PDU pdu) throws IOException {
+    public void init() throws IOException {
+        threadPool = ThreadPool.create("get", 2);
+        dispatcher = new MultiThreadedMessageDispatcher(threadPool,
+                new MessageDispatcherImpl());
+        TransportMapping transport=new DefaultUdpTransportMapping();
+        snmp = new Snmp(dispatcher, transport);
+        snmp.getMessageDispatcher().addMessageProcessingModel(new MPv1());
+        snmp.getMessageDispatcher().addMessageProcessingModel(new MPv2c());
+        snmp.getMessageDispatcher().addMessageProcessingModel(new MPv3());
+        USM usm = new USM(SecurityProtocols.getInstance(), new OctetString(MPv3
+                .createLocalEngineID()), 0);
+        SecurityModels.getInstance().addSecurityModel(usm);
+        snmpMap.put("127.0.0.1/162", snmp);
+        snmp.listen();
+        logger.info("Snmp开始监听...");
+    }
+
+    private Snmp getSnmp(String ip) throws IOException {
+        String address=ip+"/161";
+        snmp=snmpMap.get(address);
+        if(snmp==null){
+            snmp=new Snmp(new DefaultUdpTransportMapping());
+            snmpMap.put(address, snmp);
+        }
+        return snmp;
+    }
+
+    //同步发送报文
+    private ResponseEvent send(PDU pdu) throws IOException {
         CommunityTarget communityTarget=createTarget();
         return  snmp.send(pdu, communityTarget);
     }
 
+    /**
+     * 创建一个代理目标
+     * @param type 目标类型(通常为public)
+     * @param address 目标地址
+     * @param version 协议版本
+     * @return 代理目标(被管理者)
+     */
     protected CommunityTarget createTarget(String type,Address address,int version){
         CommunityTarget communityTarget=new CommunityTarget();
         communityTarget.setCommunity(new OctetString(type));
         communityTarget.setAddress(address);
-        communityTarget.setRetries(2);
-        communityTarget.setTimeout(2000);
+        communityTarget.setRetries(2);//重发次数为2次
+        communityTarget.setTimeout(2000);//超时时间2秒
         communityTarget.setVersion(version);
         return communityTarget;
     }
 
-    protected CommunityTarget createTarget(){
+    private CommunityTarget createTarget(){
         return  createTarget("public", listenAddress, SnmpConstants.version2c);
     }
 
+    /**
+     * 创建报文
+     * @param oid oid
+     * @param type 报文类型
+     * @return
+     */
     protected PDU createPDU(String oid,int type){
         PDU pdu=new PDU();
         pdu.add(new VariableBinding(new OID(oid)));
@@ -56,7 +112,8 @@ public class SnmpUtil {
         return pdu;
     }
 
-    protected void asySend(PDU pdu,int index) throws IOException {
+    //异步发送报文
+    private void asySend(PDU pdu) throws IOException {
         CommunityTarget communityTarget=new CommunityTarget();
         communityTarget.setCommunity(new OctetString("public"));
         communityTarget.setAddress(listenAddress);
@@ -66,33 +123,72 @@ public class SnmpUtil {
         ResponseListener responseListener=new ResponseListener() {
             @Override
             public void onResponse(ResponseEvent responseEvent) {
-                System.out.println("-------异步解析----------");
+                logger.info("--------异步解析----------");
                 readResponse(responseEvent);
             }
         };
         snmp.send(pdu, communityTarget, null,responseListener);
-        System.out.println("-----------异步发送中---------");
+        logger.info("-----------异步发送---------");
+        try {
+            Thread.sleep(500);//异步发送要延迟，不然收到信息之前程序结束
+        } catch (InterruptedException e) {
+            logger.info(e.getMessage());
+        }
         return ;
     }
 
     public void getPDU(String oid) throws IOException {
+        getPDU(oid, false);
+    }
+
+    /**
+     * get命令
+     * @param oid oid
+     * @param asy 是否异步发送
+     * @throws IOException
+     */
+    public void getPDU(String oid,boolean asy) throws IOException {
         PDU pdu=new PDU();
         pdu.add(new VariableBinding(new OID(oid)));
         pdu.setType(PDU.GET);
-        ResponseEvent responseEvent=send(pdu);
-        readResponse(responseEvent);
-//        asySend(pdu);
+        if(asy){
+            asySend(pdu);
+        }else {
+            ResponseEvent responseEvent=send(pdu);
+            readResponse(responseEvent);
+        }
     }
 
     public void setPDU(String oid,String value) throws IOException {
+        setPDU(oid, value, false);
+    }
+
+    /**
+     * set命令
+     * @param oid oid
+     * @param value oid对应的值
+     * @param asy 是否异步发送
+     * @throws IOException
+     */
+    public void setPDU(String oid,String value,boolean asy) throws IOException {
         PDU pdu=createPDU(oid, PDU.SET);
         String currentoid=pdu.get(0).getOid().toString();
         System.out.println(currentoid);
         pdu.get(0).setVariable(new OctetString(value));
-        System.out.println(pdu.get(0).getVariable());
-        asySend(pdu,0);
+        logger.info(pdu.get(0).getVariable().toString());
+        if(asy){
+            asySend(pdu);
+        }else {
+            ResponseEvent responseEvent=send(pdu);
+            readResponse(responseEvent);
+        }
     }
 
+    /**
+     * walk命令
+     * @param oid oid
+     * @throws IOException
+     */
     public void snamWalk(String oid) throws IOException {
         PDU pdu=new PDU();
         pdu.add(new VariableBinding(new OID(oid)));
@@ -102,12 +198,12 @@ public class SnmpUtil {
             ResponseEvent responseEvent=send(pdu);
             String nextoid=null;
             if(responseEvent!=null && responseEvent.getResponse()!=null){
-                List<VariableBinding> list=responseEvent.getResponse().getVariableBindings();
+                List<? extends VariableBinding> list=responseEvent.getResponse().getVariableBindings();
                 for(VariableBinding variableBinding:list){
-//                    System.out.println(variableBinding.getOid()+":"+variableBinding.getVariable());
                     nextoid=variableBinding.getOid().toString();
                     if(!nextoid.startsWith(oid)){
                         match=false;
+                        break;
                     }
                 }
             }
@@ -116,22 +212,14 @@ public class SnmpUtil {
             }
             pdu.clear();
             pdu.add(new VariableBinding(new OID(nextoid)));
-            System.out.println("返回结果："+responseEvent.getResponse());
+            logger.info("返回结果："+responseEvent.getResponse());
         }
-    }
-
-    public void trapPDU(String oid,String value) throws IOException {
-        CommunityTarget communityTarget=createTarget();
-        PDU pdu=createPDU(oid, PDU.TRAP);
-        pdu.get(0).setVariable(new OctetString(value));
-        ResponseEvent responseEvent=send(pdu);
-        readResponse(responseEvent);
     }
 
     protected void readResponse(ResponseEvent responseEvent){
         if(responseEvent!=null && responseEvent.getResponse()!=null){
             System.out.println("------开始解析Response------");
-            List<VariableBinding> list=responseEvent.getResponse().getVariableBindings();
+            List<? extends VariableBinding> list=responseEvent.getResponse().getVariableBindings();
             for(VariableBinding variableBinding:list){
                 System.out.println(variableBinding.getOid()+":"+variableBinding.getVariable());
             }
@@ -144,31 +232,22 @@ public class SnmpUtil {
                 snmp.close();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
         }
     }
 
     public static void main(String[] args) {
-        String oid=".1.3.6.1.2.1.1.4.0";
-        //String oid=".1.3.6.1.2.1.2.2.1.2";
-        SnmpUtil snmpUtil=new SnmpUtil();
+        String oid=".1.3.6.1.2.1.1.1.0";//系统基本信息
+        String oid2="1.3.6.1.4.1.2021.4.3.0";//获取内存大小
+        SnmpUtil snmpUtil=new SnmpUtil("10.2.7.23");
         try {
             snmpUtil.init();
-            //snmpUtil.trapPDU(oid, "nihao");
-            //snmpUtil.getPDU(".1.3.6.1.2.1.1.1.0");
-            /*snmpUtil.setPDU(oid, "chenqiang");
-            Thread.sleep(200);*/
-            //snmpUtil.getPDU(oid);
-            snmpUtil.trapPDU(oid, "nihao");
-            Thread.sleep(2000);
             //snmpUtil.snamWalk("1.3.6.1.2.1.25.3.3.1.2");
+            snmpUtil.getPDU(oid2);
         }catch (IOException e){
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } finally {
-         snmpUtil.close();
+            snmpUtil.close();
         }
     }
 }
-//Root <root@localhost> (configure /etc/snmp/snmp.local.conf)
