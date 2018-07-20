@@ -47,7 +47,7 @@ public class SnmpTrapUtil extends SnmpUtil{
         threadPool = ThreadPool.create("Trap", 2);
         dispatcher = new MultiThreadedMessageDispatcher(threadPool,
                 new MessageDispatcherImpl());
-        TransportMapping transport=new DefaultUdpTransportMapping(new UdpAddress("127.0.0.1/162"));
+        TransportMapping transport=new DefaultUdpTransportMapping(new UdpAddress("0.0.0.0/162"));
         snmp = new Snmp(dispatcher, transport);
         snmp.getMessageDispatcher().addMessageProcessingModel(new MPv1());
         snmp.getMessageDispatcher().addMessageProcessingModel(new MPv2c());
@@ -55,23 +55,30 @@ public class SnmpTrapUtil extends SnmpUtil{
         USM usm = new USM(SecurityProtocols.getInstance(), new OctetString(MPv3
                 .createLocalEngineID()), 0);
         SecurityModels.getInstance().addSecurityModel(usm);
-        snmpMap.put("127.0.0.1/162", snmp);
-        int size=snmpMap.size();
+        snmpMap.put("10.2.7.23/162", snmp);
         snmp.listen();
         snmp.addCommandResponder(new CommandResponder() {
             @Override
             public void processPdu(CommandResponderEvent commandResponderEvent) {
                 PDU pdu=commandResponderEvent.getPDU();
                 if(pdu!=null){
-                    System.out.println(pdu);
+                    logger.info("捕捉到trap信息:");
+                    logger.info("消息地址："+commandResponderEvent.getPeerAddress());
+                    if(pdu.toString().indexOf(":")>0){
+                        logger.info("原信息:"+pdu.toString());
+                        logger.info("转码后的值为: "+convertUTF8ToString(pdu.get(0).getVariable().toString().replace(":", "")));
+                    }
+                    else {
+                        logger.info(pdu.toString());
+                    }
                 }
             }
         });
-        System.out.println("开始监听trap...");
+        logger.info("开始监听trap...");
     }
 
-    private Snmp getSnmp(String ip) throws IOException {
-        String address=ip+"/162";
+    public Snmp getSnmp() throws IOException {
+        String address="0.0.0.0/162";
         snmp=snmpMap.get(address);
         if(snmp==null){
             snmp=new Snmp(new DefaultUdpTransportMapping(new UdpAddress(address)));
@@ -88,21 +95,23 @@ public class SnmpTrapUtil extends SnmpUtil{
      */
     public void trapPDU(String oid,String value) throws IOException {
         if(snmp==null){
-            snmp=getSnmp("127.0.0.1");
+            snmp=getSnmp();
         }
         CommunityTarget communityTarget=createTarget("public", listenAddress, SnmpConstants.version2c);
         PDU pdu=createPDU(oid, PDU.TRAP);
         pdu.get(0).setVariable(new OctetString(value));
+        logger.info("Trap信息准备发送...，目标："+listenAddress.toString());
         ResponseEvent responseEvent=snmp.send(pdu, communityTarget);
+        logger.info("Trap信息已发送...");
         readResponse(responseEvent);
     }
 
     public static void main(String[] args) {
         String oid=".1.3.6.1.2.1.1.4.0";
-        SnmpTrapUtil snmpTrapUtil=new SnmpTrapUtil("10.2.7.23");
+        SnmpTrapUtil snmpTrapUtil=new SnmpTrapUtil("10.2.1.47");
         try {
-            //snmpTrapUtil.init();
-            snmpTrapUtil.trapPDU(oid,"lala");
+            snmpTrapUtil.init();
+            snmpTrapUtil.trapPDU(oid,"你好");
         }catch (IOException e){
             e.printStackTrace();
         } finally {
