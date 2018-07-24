@@ -273,13 +273,13 @@ public class SnmpUtil {
     }
 
     public static void main(String[] args) {
-        String oid = ".1.3.6.1.2.1.1.1.0";//系统基本信息
-        String oid2 = "1.3.6.1.2.1.2.2.1.6";//获取内存大小
+        String oid = ".1.3.6.1.2.1.1.5.0";//系统基本信息
+        String oid2 = "1.3.6.1.2.1.25.4.2.1.2";//获取内存大小
         SnmpUtil snmpUtil = new SnmpUtil("10.2.1.47");
         try {
             snmpUtil.init();
+            snmpUtil.getPDU(oid);
             snmpUtil.snamWalk(oid2);
-            //snmpUtil.getPDU(oid2);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
