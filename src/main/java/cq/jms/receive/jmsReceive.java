@@ -1,6 +1,5 @@
-package cq.receive;
+package cq.jms.receive;
 
-import com.sun.org.apache.xml.internal.security.Init;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 

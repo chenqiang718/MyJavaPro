@@ -1,4 +1,4 @@
-package cq.send;
+package cq.jms.send;
 
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;

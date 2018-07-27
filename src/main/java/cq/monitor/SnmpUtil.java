@@ -278,8 +278,8 @@ public class SnmpUtil {
         SnmpUtil snmpUtil = new SnmpUtil("10.2.1.47");
         try {
             snmpUtil.init();
-            snmpUtil.getPDU(oid);
-            snmpUtil.snamWalk(oid2);
+            snmpUtil.getPDU("ifNumber");
+//            snmpUtil.snamWalk(oid2);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
