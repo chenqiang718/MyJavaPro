@@ -1,4 +1,4 @@
-package cq.netty;
+package cq.cq.netty;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;

@@ -3,7 +3,6 @@ package cq.crawl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import cq.common.ExcelUtils;
-import cq.common.ReadExcel;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -20,8 +19,6 @@ import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 public class Doumi {
     private static Logger logger = Logger.getLogger(Doumi.class);

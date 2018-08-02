@@ -1,4 +1,4 @@
-package cq.netty;
+package cq.cq.netty;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;

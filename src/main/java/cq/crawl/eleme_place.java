@@ -1,22 +1,15 @@
+/*
 package cq.crawl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.mysql.cj.xdevapi.JsonArray;
 import cq.common.ExcelUtils;
 import cq.common.ReadExcel;
-import org.apache.http.Header;
 import org.apache.http.HttpHost;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.conn.params.ConnRouteParams;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
@@ -24,7 +17,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.*;
 import java.util.List;
 import java.util.Map;
 
@@ -40,9 +32,15 @@ public class eleme_place {
         List<Map<String, String>> list = readExcel.getExcelInfo(file);
         JSONArray head = new JSONArray();
         JSONArray body = new JSONArray();
-        /*        *//*JVM设置代理*//*
+        */
+/*        *//*
+*/
+/*JVM设置代理*//*
+*/
+/*
         System.getProperties().setProperty("http.proxyHost", ip);
-        System.getProperties().setProperty("http.proxyPort", "80");*/
+        System.getProperties().setProperty("http.proxyPort", "80");*//*
+
         for (Map<String, String> map : list) {
             String kw = map.get("keyWord");
             String url = tempUrl.replace("${kw}", kw);
@@ -100,3 +98,4 @@ public class eleme_place {
         return httpclient;
     }
 }
+*/

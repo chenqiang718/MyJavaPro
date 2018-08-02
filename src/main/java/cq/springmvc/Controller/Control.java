@@ -1,18 +1,13 @@
 package cq.springmvc.Controller;
 
-import cq.springmvc.Model.User;
-import cq.springmvc.Service.UserGetService;
-import org.apache.commons.logging.LogFactory;
+import cq.Model.User;
+import cq.Service.UserGetService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.DispatcherServlet;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

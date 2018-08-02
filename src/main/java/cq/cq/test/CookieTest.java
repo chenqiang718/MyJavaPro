@@ -1,4 +1,4 @@
-package cq.test;
+package cq.cq.test;
 
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;

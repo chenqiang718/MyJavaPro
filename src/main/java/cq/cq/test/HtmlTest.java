@@ -1,4 +1,4 @@
-package cq.test;
+package cq.cq.test;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.http.HttpEntity;

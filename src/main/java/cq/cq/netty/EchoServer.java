@@ -1,4 +1,4 @@
-package cq.netty;
+package cq.cq.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -10,10 +10,10 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.apache.log4j.Logger;
 
-public class DiscardServer {
-    private static final Logger logger=Logger.getLogger(DiscardServer.class);
+public class EchoServer {
+    private static final Logger logger=Logger.getLogger(EchoServer.class);
     private int port;
-    public DiscardServer(int port){
+    public EchoServer(int port){
         this.port=port;
     }
 
@@ -27,7 +27,7 @@ public class DiscardServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
-                            socketChannel.pipeline().addLast(new DiscardServerHandler());
+                            socketChannel.pipeline().addLast(new EchoServerHandler());
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)
@@ -48,7 +48,7 @@ public class DiscardServer {
             port=8080;
         }
         try {
-            new DiscardServer(port).run();
+            new EchoServer(port).run();
         } catch (InterruptedException e) {
             logger.error(e);
         }

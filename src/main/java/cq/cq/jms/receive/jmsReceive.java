@@ -1,4 +1,4 @@
-package cq.jms.receive;
+package cq.cq.jms.receive;
 
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
