@@ -1,4 +1,4 @@
-package cq.test;
+package cq.cq.test;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;

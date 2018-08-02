@@ -1,6 +1,6 @@
-package cq.springmvc.Dao;
+package cq.Dao;
 
-import cq.springmvc.Model.User;
+import cq.Model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

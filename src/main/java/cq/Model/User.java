@@ -1,4 +1,4 @@
-package cq.springmvc.Model;
+package cq.Model;
 
 public class User {
     private int id;

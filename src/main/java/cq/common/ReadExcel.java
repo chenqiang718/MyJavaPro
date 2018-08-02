@@ -1,156 +1,158 @@
 package cq.common;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.web.multipart.MultipartFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
- * @author  李光光(编码小王子)
- * @date    2016年10月17日 下午2:19:39
+ * @author 陈强
  * @version 1.0
+ * @date 2016年10月17日 下午2:19:39
  */
 public class ReadExcel {
+    private static final Logger logger = LoggerFactory.getLogger(ReadExcel.class);
     //总行数
     private int totalRows = 0;
     //总条数
     private int totalCells = 0;
     //错误信息接收器
     private String errorMsg;
+
+    //文件名
+    private String fileName;
+
+    private Workbook wb;
+
     //构造方法
-    public ReadExcel(){}
+    public ReadExcel(File file, boolean isExcel2003) {
+        FileInputStream in=null;
+        try {
+            if (isExcel2003) {// 当excel是2003时,创建excel2003
+                in=new FileInputStream(file);
+                wb = new HSSFWorkbook(in);
+                fileName = file.getName();
+            } else {// 当excel是2007时,创建excel2007
+                in=new FileInputStream(file);
+                wb = new XSSFWorkbook(in);
+                fileName = file.getName();
+            }
+        } catch (IOException e) {
+            logger.error("文件位置不正确!" );
+            logger.error(e.getLocalizedMessage());
+        }finally {
+            if(in!=null){
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    logger.error(e.getLocalizedMessage());
+                }
+            }
+        }
+    }
+
+
     //获取总行数
-    public int getTotalRows()  {
+    public int getTotalRows() {
         return totalRows;
     }
+
     //获取总列数
     public int getTotalCells() {
         return totalCells;
     }
+
     //获取错误信息
     public String getErrorInfo() {
         return errorMsg;
     }
 
-    /**
-     * 读EXCEL文件，获取信息集合
-     * @param mFile
-     * @return
-     */
-    public List<Map<String,String>> getExcelInfo(MultipartFile mFile) {
-        String fileName = mFile.getOriginalFilename();//获取文件名
-        List<Map<String,String>> seedList=null;
-        try {
-            if (!validateExcel(fileName)) {// 验证文件名是否合格
-                return null;
-            }
-            boolean isExcel2003 = true;// 根据文件名判断文件是2003版本还是2007版本
-            if (isExcel2007(fileName)) {
-                isExcel2003 = false;
-            }
-            seedList = createExcel(mFile.getInputStream(), isExcel2003);
-        } catch (Exception e) {
-            e.printStackTrace();
+    //获取总表数
+    public int getSheetNums() {
+        if (wb != null) {
+            return wb.getNumberOfSheets();
+        } else {
+            return 0;
         }
-        return seedList;
     }
 
-    public List<Map<String,String>> getExcelInfo(File mFile) {
-        String fileName = mFile.getName();//获取文件名
-        List<Map<String,String>> seedList=null;
-        try {
-            if (!validateExcel(fileName)) {// 验证文件名是否合格
-                return null;
-            }
-            boolean isExcel2003 = true;// 根据文件名判断文件是2003版本还是2007版本
-            if (isExcel2007(fileName)) {
-                isExcel2003 = false;
-            }
-            seedList = createExcel(new FileInputStream(mFile), isExcel2003);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return seedList;
-    }
     /**
      * 根据excel里面的内容读取客户信息
-     * @param is 输入流
-     * @param isExcel2003 excel是2003还是2007版本
+     *
      * @return
      * @throws IOException
      */
-    public List<Map<String,String>> createExcel(InputStream is, boolean isExcel2003) {
-        List<Map<String,String>> seedList=null;
-        try{
-            Workbook wb = null;
-            if (isExcel2003) {// 当excel是2003时,创建excel2003
-                wb = new HSSFWorkbook(is);
-            } else {// 当excel是2007时,创建excel2007
-                wb = new XSSFWorkbook(is);
-            }
-            seedList= readExcelValue(wb);// 读取Excel里面客户的信息
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return seedList;
+    public List<JSONObject> readExcel(int sheetindex, int headindex) throws Exception {
+        List<JSONObject> objectList = null;
+
+        objectList = readExcelValue(wb, sheetindex, headindex);// 读取Excel里面客户的信息
+        return objectList;
     }
 
     /**
      * 读取Excel里面客户的信息
+     *
      * @param wb
-     * @return
+     * @param sheetindex sheet的索引
+     * @param headindex  标题行索引，从0开始计数
+     * @return 数据从0开始计数，0位表名，1开始为第一列数据
      */
-    private List<Map<String,String>> readExcelValue(Workbook wb) {
-        // 得到第一个shell
-        Sheet sheet = wb.getSheetAt(0);
+    private List<JSONObject> readExcelValue(Workbook wb, int sheetindex, int headindex) throws Exception{
+        // 得到shell
+        Sheet sheet = wb.getSheetAt(sheetindex);
         // 得到Excel的行数
         this.totalRows = sheet.getPhysicalNumberOfRows();
-        // 得到Excel的列数(前提是有行数)
-        if (totalRows > 1 && sheet.getRow(0) != null) {
-            this.totalCells = sheet.getRow(0).getPhysicalNumberOfCells();
+        if(this.totalRows==0){
+            throw  new Exception("EXCEL【"+fileName+"】的表【"+sheet.getSheetName()+"】为空");
         }
-        List<Map<String,String>> userList = new ArrayList<Map<String,String>>();
+        // 得到Excel的列数(前提是有行数)
+        if (totalRows > headindex && sheet.getRow(headindex) != null) {
+            this.totalCells = sheet.getRow(headindex).getPhysicalNumberOfCells();
+        }
+        List<JSONObject> jsonList = new ArrayList<JSONObject>();
         // 循环Excel行数
-        for (int r = 272; r < totalRows; r++) {
+        for (int r = headindex + 1; r < totalRows; r++) {
             Row row = sheet.getRow(r);
-            if (row == null){
+            if (row == null) {
                 continue;
             }
-            Map<String,String> seed = new HashMap<>();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("0", sheet.getSheetName());
             // 循环Excel的列
             for (int c = 0; c < this.totalCells; c++) {
                 Cell cell = row.getCell(c);
                 if (null != cell) {
-                    switch (c){
-                        case 0:
-                            if(cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC){
-                                String media_cd = String.valueOf(cell.getNumericCellValue());
-                                seed.put("keyWord",media_cd.substring(0, media_cd.length()-2>0?media_cd.length()-2:1));//名称
-                                break;
-                            }else {
-                                seed.put("keyWord",cell.getStringCellValue());
-                                break;
-                            }
+                    if (cell.getCellTypeEnum() == CellType.NUMERIC) {
+                        String value = String.valueOf(cell.getNumericCellValue());
+                        jsonObject.put(String.valueOf(c + 1), value.substring(0, value.length() - 2 > 0 ? value.length() - 2 : 1));//名称
+                    } else {
+                        cell.setCellType(CellType.STRING);
+                        jsonObject.put(String.valueOf(c + 1), cell.getStringCellValue());
                     }
                 }
             }
             // 添加到list
-            userList.add(seed);
+            jsonList.add(jsonObject);
         }
-        return userList;
+        return jsonList;
+    }
+
+    public void close(){
+        if(wb!=null){
+            try {
+                wb.close();
+            } catch (IOException e) {
+                logger.error("关闭POI异常");
+            }
+        }
     }
 
     /**
@@ -168,12 +170,12 @@ public class ReadExcel {
     }
 
     // @描述：是否是2003的excel，返回true是2003
-    public static boolean isExcel2003(String filePath)  {
+    public static boolean isExcel2003(String filePath) {
         return filePath.matches("^.+\\.(?i)(xls)$");
     }
 
     //@描述：是否是2007的excel，返回true是2007
-    public static boolean isExcel2007(String filePath)  {
+    public static boolean isExcel2007(String filePath) {
         return filePath.matches("^.+\\.(?i)(xlsx)$");
     }
 }

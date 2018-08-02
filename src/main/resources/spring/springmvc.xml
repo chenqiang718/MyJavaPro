@@ -11,9 +11,6 @@
           http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!-- 配置扫描的包 -->
-    <context:component-scan base-package="cq.springmvc" />
-
     <!-- 注册HandlerMapper、HandlerAdapter两个映射类 -->
     <mvc:annotation-driven >
         <!-- 消息转换器,解决responseBody返回中外乱码问题 -->

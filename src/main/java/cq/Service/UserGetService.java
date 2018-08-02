@@ -1,9 +1,8 @@
-package cq.springmvc.Service;
+package cq.Service;
 
-import cq.springmvc.Dao.UserGetDao;
-import cq.springmvc.Model.User;
+import cq.Dao.UserGetDao;
+import cq.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

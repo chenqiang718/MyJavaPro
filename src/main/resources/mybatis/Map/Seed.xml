@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cq.Dao.SeedDao">
+
+	<select id="countSeed" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM
+		BUSS_SEED;
+	</select>
+
+	<select id="querySeed" resultType="cq.Model.Seed">
+		SELECT
+		u.seed_id,
+		u.media_cd,
+		u.task_type,
+		u.task_content,
+		u.INTERVAL,
+		u.remark,
+		u.items,
+		u.priority
+		FROM BUSS_SEED u
+		<where>
+			<if test="content!=null">
+				u.task_content like concat("%",#{content},"%")
+				AND u.media_cd="gs_company"
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="cq.Model.Seed">
+		INSERT INTO BUSS_SEED (media_cd,task_type,task_content,`interval`,remark,items,priority)
+		VALUES (#{seed.media_cd},#{seed.task_type},#{seed.task_content},#{seed.interval},#{seed.remark},#{seed.items},#{seed.priority})
+	</insert>
+
+	<update id="update" parameterType="cq.Model.Seed">
+		UPDATE BUSS_SEED
+		<set>
+			<if test="seed.media_cd!=null">media_cd=#{seed.media_cd},</if>
+			<if test="seed.task_type!=null">task_type=#{seed.task_type},</if>
+			<if test="seed.task_content!=null">task_content=#{seed.task_content},</if>
+			<if test="seed.interval!=0">`interval`=#{seed.interval},</if>
+			<if test="seed.remark!=null">remark=#{seed.remark},</if>
+			<if test="seed.items!=0 ">items=#{seed.items},</if>
+			<if test="seed.priority!=0 ">priority=#{seed.priority},</if>
+		</set>
+		WHERE
+		seed_id=#{seed.seed_id}
+	</update>
+</mapper>

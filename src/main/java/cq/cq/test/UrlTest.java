@@ -1,4 +1,4 @@
-package cq.test;
+package cq.cq.test;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
