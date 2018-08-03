@@ -57,8 +57,6 @@
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
                     </archive>
-                    <classesDirectory>
-                    </classesDirectory>
                 </configuration>
             </plugin>
             <!-- 把依赖的jar包拷到lib目录下 -->
