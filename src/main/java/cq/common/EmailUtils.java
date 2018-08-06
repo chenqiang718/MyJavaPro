@@ -19,15 +19,6 @@ import java.util.Properties;
  */
 public class EmailUtils {
 
-/*	private static final String SEND_USER = "yq_service@163.com";
-	private static final String SEND_PWD = "8R80znN52017";*/
-
-/*	private static final String SEND_USER = "m13588014127@163.com";
-	private static final String SEND_PWD = "a64500507z";*/
-
-/*	private static final String SEND_USER = "chenqiang@adtime.com";
-	private static final String SEND_PWD = "A64500507z";*/
-
 	private static final String SEND_USER = "chenqiang718@sina.com";
 	private static final String SEND_PWD = "18232582";
 

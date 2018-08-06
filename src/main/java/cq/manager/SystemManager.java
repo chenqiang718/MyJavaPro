@@ -16,7 +16,7 @@ public class SystemManager {
     public void init(){
 //        runinsert();
         System.out.println("你好");
-        runTest2();
+//        runTest2();
     }
 
     private void runinsert(){
