@@ -1,0 +1,22 @@
+[15:31:31] [INFO] start
+[15:31:59] [ERROR] jquery加载出现异常
+java.io.FileNotFoundException: \javascript\jquery-2.0.3.min.js (系统找不到指定的路径。)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(FileInputStream.java:195)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at java.io.FileInputStream.<init>(FileInputStream.java:93)
+	at cq.common.ScriptIn.initJQuery(ScriptIn.java:34)
+	at cq.common.ScriptIn.runJs(ScriptIn.java:53)
+	at cq.browser.Weibo.main(Weibo.java:60)
+[15:40:12] [INFO] start
+[15:43:12] [INFO] start
+[15:44:41] [INFO] start
+[15:46:44] [INFO] start
+[15:47:43] [INFO] start
+[15:52:42] [INFO] start
+[16:06:29] [INFO] start
+[16:06:58] [INFO] start
+[16:31:05] [INFO] start
+[17:12:50] [INFO] start
+[17:15:43] [INFO] start
+[17:16:40] [INFO] start

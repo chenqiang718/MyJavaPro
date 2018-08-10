@@ -1,64 +1,16 @@
-[17:30:19] [INFO] Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@33833882: startup date [Mon Aug 06 17:30:19 CST 2018]; root of context hierarchy
-[17:30:19] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring-manager.xml]
-[17:30:19] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring-mybatis.xml]
-[17:30:20] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring.xml]
-[17:30:20] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring-mybatis.xml]
-[17:30:20] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\springmvc.xml]
-[17:30:20] [WARN] Skipping MapperFactoryBean with name 'seedDao' and 'cq.Dao.SeedDao' mapperInterface. Bean already defined with the same name!
-[17:30:20] [WARN] Skipping MapperFactoryBean with name 'userGetDao' and 'cq.Dao.UserGetDao' mapperInterface. Bean already defined with the same name!
-[17:30:20] [WARN] No MyBatis mapper was found in '[cq.Dao]' package. Please check your configuration.
-[17:30:20] [INFO] Loaded JDBC driver: com.mysql.jdbc.Driver
-[17:30:20] [INFO] Mapped "{[/getUser]}" onto public java.lang.String cq.springmvc.Controller.Control.getAllUser(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
-[17:30:20] [INFO] Mapped "{[/HelloWorld]}" onto public java.lang.String cq.springmvc.Controller.Control.hello()
-[17:30:20] [INFO] Mapped "{[/Hello]}" onto public java.lang.String cq.springmvc.Controller.Control.HelloWorld()
-[17:30:20] [INFO] Looking for @ControllerAdvice: org.springframework.context.support.ClassPathXmlApplicationContext@33833882: startup date [Mon Aug 06 17:30:19 CST 2018]; root of context hierarchy
-[17:30:20] [INFO] Looking for @ControllerAdvice: org.springframework.context.support.ClassPathXmlApplicationContext@33833882: startup date [Mon Aug 06 17:30:19 CST 2018]; root of context hierarchy
-[17:30:21] [INFO] Mapped URL path [/**] onto handler 'org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler#0'
-[17:30:40] [INFO] Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@33833882: startup date [Tue Aug 07 17:30:40 CST 2018]; root of context hierarchy
-[17:30:40] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring-manager.xml]
-[17:30:40] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring-mybatis.xml]
-[17:30:40] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring.xml]
-[17:30:40] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring-mybatis.xml]
-[17:30:40] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\springmvc.xml]
-[17:30:40] [WARN] Skipping MapperFactoryBean with name 'seedDao' and 'cq.Dao.SeedDao' mapperInterface. Bean already defined with the same name!
-[17:30:40] [WARN] Skipping MapperFactoryBean with name 'userGetDao' and 'cq.Dao.UserGetDao' mapperInterface. Bean already defined with the same name!
-[17:30:40] [WARN] No MyBatis mapper was found in '[cq.Dao]' package. Please check your configuration.
-[17:30:41] [INFO] Loaded JDBC driver: com.mysql.jdbc.Driver
-[17:30:41] [INFO] Mapped "{[/getUser]}" onto public java.lang.String cq.springmvc.Controller.Control.getAllUser(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
-[17:30:41] [INFO] Mapped "{[/HelloWorld]}" onto public java.lang.String cq.springmvc.Controller.Control.hello()
-[17:30:41] [INFO] Mapped "{[/Hello]}" onto public java.lang.String cq.springmvc.Controller.Control.HelloWorld()
-[17:30:41] [INFO] Looking for @ControllerAdvice: org.springframework.context.support.ClassPathXmlApplicationContext@33833882: startup date [Tue Aug 07 17:30:40 CST 2018]; root of context hierarchy
-[17:30:41] [INFO] Looking for @ControllerAdvice: org.springframework.context.support.ClassPathXmlApplicationContext@33833882: startup date [Tue Aug 07 17:30:40 CST 2018]; root of context hierarchy
-[17:30:41] [INFO] Mapped URL path [/**] onto handler 'org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler#0'
-[17:31:01] [INFO] Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@33833882: startup date [Mon Aug 06 17:31:01 CST 2018]; root of context hierarchy
-[17:31:01] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring-manager.xml]
-[17:31:01] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring-mybatis.xml]
-[17:31:01] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring.xml]
-[17:31:01] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring-mybatis.xml]
-[17:31:01] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\springmvc.xml]
-[17:31:01] [WARN] Skipping MapperFactoryBean with name 'seedDao' and 'cq.Dao.SeedDao' mapperInterface. Bean already defined with the same name!
-[17:31:01] [WARN] Skipping MapperFactoryBean with name 'userGetDao' and 'cq.Dao.UserGetDao' mapperInterface. Bean already defined with the same name!
-[17:31:01] [WARN] No MyBatis mapper was found in '[cq.Dao]' package. Please check your configuration.
-[17:31:02] [INFO] Loaded JDBC driver: com.mysql.jdbc.Driver
-[17:31:02] [INFO] Mapped "{[/getUser]}" onto public java.lang.String cq.springmvc.Controller.Control.getAllUser(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
-[17:31:02] [INFO] Mapped "{[/HelloWorld]}" onto public java.lang.String cq.springmvc.Controller.Control.hello()
-[17:31:02] [INFO] Mapped "{[/Hello]}" onto public java.lang.String cq.springmvc.Controller.Control.HelloWorld()
-[17:31:02] [INFO] Looking for @ControllerAdvice: org.springframework.context.support.ClassPathXmlApplicationContext@33833882: startup date [Mon Aug 06 17:31:01 CST 2018]; root of context hierarchy
-[17:31:02] [INFO] Looking for @ControllerAdvice: org.springframework.context.support.ClassPathXmlApplicationContext@33833882: startup date [Mon Aug 06 17:31:01 CST 2018]; root of context hierarchy
-[17:31:02] [INFO] Mapped URL path [/**] onto handler 'org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler#0'
-[17:39:01] [INFO] Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@33833882: startup date [Mon Aug 06 17:39:01 CST 2018]; root of context hierarchy
-[17:39:01] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring-manager.xml]
-[17:39:01] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring-mybatis.xml]
-[17:39:01] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring.xml]
-[17:39:01] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring-mybatis.xml]
-[17:39:01] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\springmvc.xml]
-[17:39:01] [WARN] Skipping MapperFactoryBean with name 'seedDao' and 'cq.Dao.SeedDao' mapperInterface. Bean already defined with the same name!
-[17:39:01] [WARN] Skipping MapperFactoryBean with name 'userGetDao' and 'cq.Dao.UserGetDao' mapperInterface. Bean already defined with the same name!
-[17:39:01] [WARN] No MyBatis mapper was found in '[cq.Dao]' package. Please check your configuration.
-[17:39:02] [INFO] Loaded JDBC driver: com.mysql.jdbc.Driver
-[17:39:02] [INFO] Mapped "{[/getUser]}" onto public java.lang.String cq.springmvc.Controller.Control.getAllUser(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
-[17:39:02] [INFO] Mapped "{[/HelloWorld]}" onto public java.lang.String cq.springmvc.Controller.Control.hello()
-[17:39:02] [INFO] Mapped "{[/Hello]}" onto public java.lang.String cq.springmvc.Controller.Control.HelloWorld()
-[17:39:02] [INFO] Looking for @ControllerAdvice: org.springframework.context.support.ClassPathXmlApplicationContext@33833882: startup date [Mon Aug 06 17:39:01 CST 2018]; root of context hierarchy
-[17:39:02] [INFO] Looking for @ControllerAdvice: org.springframework.context.support.ClassPathXmlApplicationContext@33833882: startup date [Mon Aug 06 17:39:01 CST 2018]; root of context hierarchy
-[17:39:02] [INFO] Mapped URL path [/**] onto handler 'org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler#0'
+[17:41:15] [INFO] Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@33833882: startup date [Mon Aug 06 17:41:15 CST 2018]; root of context hierarchy
+[17:41:15] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring-manager.xml]
+[17:41:15] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring-mybatis.xml]
+[17:41:15] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring.xml]
+[17:41:15] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\spring-mybatis.xml]
+[17:41:15] [INFO] Loading XML bean definitions from file [D:\git\MyJavaPro\target\classes\spring\springmvc.xml]
+[17:41:16] [WARN] Skipping MapperFactoryBean with name 'seedDao' and 'cq.Dao.SeedDao' mapperInterface. Bean already defined with the same name!
+[17:41:16] [WARN] Skipping MapperFactoryBean with name 'userGetDao' and 'cq.Dao.UserGetDao' mapperInterface. Bean already defined with the same name!
+[17:41:16] [WARN] No MyBatis mapper was found in '[cq.Dao]' package. Please check your configuration.
+[17:41:16] [INFO] Loaded JDBC driver: com.mysql.jdbc.Driver
+[17:41:16] [INFO] Mapped "{[/getUser]}" onto public java.lang.String cq.springmvc.Controller.Control.getAllUser(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+[17:41:16] [INFO] Mapped "{[/HelloWorld]}" onto public java.lang.String cq.springmvc.Controller.Control.hello()
+[17:41:16] [INFO] Mapped "{[/Hello]}" onto public java.lang.String cq.springmvc.Controller.Control.HelloWorld()
+[17:41:16] [INFO] Looking for @ControllerAdvice: org.springframework.context.support.ClassPathXmlApplicationContext@33833882: startup date [Mon Aug 06 17:41:15 CST 2018]; root of context hierarchy
+[17:41:16] [INFO] Looking for @ControllerAdvice: org.springframework.context.support.ClassPathXmlApplicationContext@33833882: startup date [Mon Aug 06 17:41:15 CST 2018]; root of context hierarchy
+[17:41:16] [INFO] Mapped URL path [/**] onto handler 'org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler#0'
