@@ -6,6 +6,7 @@ import cq.Model.Seed;
 import cq.Service.SeedService;
 import cq.common.ExcelUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import sun.rmi.server.Util;
 
 import java.io.File;
 import java.util.List;
@@ -91,6 +92,4 @@ public class SystemManager {
         //ExcelUtils.outFile(ExcelUtils.expExcel("itfin_url", head , body), "D:/2018/itfin_url2.xlsx");
         System.out.println("总大小：【"+a+"】     存在数目:【"+b+"】    不存在数目:【"+c+"】");
     }
-
-    public void monitor(){}
 }
