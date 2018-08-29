@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="log.base" value="../logs"></property>
+    <property name="log.base" value="./logs"></property>
     <!-- ch.qos.logback.core.ConsoleAppender 控制台输出 -->
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
