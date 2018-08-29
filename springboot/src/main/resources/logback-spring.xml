@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="log.base" value="../logs"></property>
+    <!-- ch.qos.logback.core.ConsoleAppender 控制台输出 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+    <!-- ch.qos.logback.core.rolling.RollingFileAppender 文件日志输出 -->
+    <appender name="rollFile"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/springboot-%d{yyyy-MM-dd}-log.txt
+            </fileNamePattern>
+            <maxHistory>5</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 定义了ERROR和INFO级别的日志，分别在STDOUT/mavenProjectlogs输出 -->
+    <root level="info">
+        <appender-ref ref="stdout" />
+        <appender-ref ref="rollFile" />
+    </root>
+</configuration>
