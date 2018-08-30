@@ -92,4 +92,8 @@ public class SystemManager {
         //ExcelUtils.outFile(ExcelUtils.expExcel("itfin_url", head , body), "D:/2018/itfin_url2.xlsx");
         System.out.println("总大小：【"+a+"】     存在数目:【"+b+"】    不存在数目:【"+c+"】");
     }
+
+    public void monitor(){
+        System.out.println("20秒执行一次");
+    }
 }
