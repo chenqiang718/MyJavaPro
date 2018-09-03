@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface SeedDao {
     //返回总记录数
-    public int countSeed();
+    int countSeed();
 
     /**
      * 根据remark筛选seed,若remark为空，则筛选全部
@@ -16,7 +16,7 @@ public interface SeedDao {
      * @return 筛选数据
      * @author chenqiang
      */
-    public List<Seed> querySeed(@Param("content") String content);
+    List<Seed> querySeed(@Param("content") String content);
 
     /**
      * 插入一条新的seed
@@ -25,7 +25,7 @@ public interface SeedDao {
      * @return 受影响的行数
      * @author chenqiang
      */
-    public Integer insert(@Param("seed") Seed seed);
+    Integer insert(@Param("seed") Seed seed);
 
     /**
      * 更改seed的值
@@ -34,6 +34,6 @@ public interface SeedDao {
      * @return 受影响的行数
      * @author chenqiang
      */
-    public int update(@Param("seed") Seed seed);
+    int update(@Param("seed") Seed seed);
 
 }

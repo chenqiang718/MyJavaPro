@@ -26,6 +26,7 @@ public class ControllerTest {
 
     @RequestMapping("/hello")
     public String SayHelloHtml(){
+        int i=1/0;
         return "Hello";
     }
 
