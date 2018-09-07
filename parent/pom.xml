@@ -11,7 +11,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>../Myspring</module>
+        <module>../spring</module>
         <module>../springboot</module>
+        <module>../api</module>
+        <module>../comsumer</module>
+        <module>../provider</module>
     </modules>
 </project>
