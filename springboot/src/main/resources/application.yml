@@ -31,6 +31,22 @@ spring:
     port: 5672
     username: guest
     password: guest
+  devtools:                                 #热部署
+    restart:
+      additional-paths: springboot/src/main/java
+      enabled: true
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password:
+    timeout: 10s
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1s
+        max-idle: 8
+        min-idle: 2
 server:
   tomcat:
     uri-encoding: UTF-8

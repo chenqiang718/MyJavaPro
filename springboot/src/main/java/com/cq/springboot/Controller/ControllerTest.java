@@ -21,7 +21,7 @@ public class ControllerTest {
     public String SayHello() throws UnsupportedEncodingException {
         String name=studentPropeties.getName();
         System.out.println(name);
-        return "你好:"+name;
+        return "出错了:"+name;
     }
 
     @RequestMapping("/hello")

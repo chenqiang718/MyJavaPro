@@ -6,6 +6,7 @@ import cq.Model.Seed;
 import cq.Service.SeedService;
 import cq.common.ExcelUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import sun.rmi.server.Util;
 
 import java.io.File;
@@ -14,6 +15,7 @@ import java.util.List;
 public class SystemManager {
     @Autowired
     private SeedService seedService;
+
     public void init(){
 //        runinsert();
         System.out.println("你好");
