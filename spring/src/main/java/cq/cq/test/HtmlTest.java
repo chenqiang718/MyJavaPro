@@ -73,8 +73,22 @@ public class HtmlTest {
         try {
             String response=htmlTest.readHtml("http://www.xicidaili.com/nn");
             List<JSONObject> jsonObjectList=htmlTest.dealResponse(response);
+            List<JSONObject> jsonObjectListDealed=new ArrayList<>();
+            int all=jsonObjectList.size();
             System.out.println("-----------------------------");
+            System.out.println("总共："+all+"个原始数据");
+            int count=0;
             for(JSONObject jsonObject:jsonObjectList){
+                String ip=jsonObject.getString("ip");
+                int port=Integer.parseInt(jsonObject.getString("port"));
+                if(ProxyTest.testProxy(ip, port)){
+                    jsonObjectListDealed.add(jsonObject);
+                }
+                count++;
+                System.out.println("已处理"+count+"个,总共"+all+"个");
+            }
+            System.out.println("处理后有效ip总数为"+jsonObjectListDealed.size()+"个");
+            for(JSONObject jsonObject:jsonObjectListDealed){
                 StringBuffer sb=new StringBuffer("{"+"\n");
                 Set<Map.Entry<String, Object>> entrySet= jsonObject.entrySet();
                 for (Map.Entry<String,Object> map:entrySet){
