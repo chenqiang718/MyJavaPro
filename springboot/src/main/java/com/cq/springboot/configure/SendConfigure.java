@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @Version 1.0
  */
 @Configuration
-public class SendConfirure {
+public class SendConfigure {
     @Bean
     public Queue queue() {
         return new Queue("queue");

@@ -1,6 +1,7 @@
 package com.cq.springboot.Controller;
 
 import com.cq.springboot.properties.StudentPropeties;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -15,9 +16,11 @@ import java.util.LinkedList;
 
 @Controller
 public class ControllerTest {
+
     @Autowired
     private StudentPropeties studentPropeties;
 
+    @ApiOperation(value = "Hello测试接口",notes = "测试")
     @ResponseBody
     @RequestMapping("/Hello")
     public String SayHello() throws UnsupportedEncodingException {
@@ -26,6 +29,7 @@ public class ControllerTest {
         return "出错了:"+name;
     }
 
+    @ApiOperation(value = "hello的测试接口",notes = "测试")
     @RequestMapping("/hello")
     public String SayHelloHtml(){
         int i=1/0;
