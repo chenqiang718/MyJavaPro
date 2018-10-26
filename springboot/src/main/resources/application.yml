@@ -4,8 +4,8 @@ student:
 spring:
   mvc:
     view:
-      prefix: views/
-      suffix: .jsp
+      prefix: /html/
+      suffix: .html
   http:
     encoding:
       charset: utf-8
@@ -14,8 +14,8 @@ spring:
   # jdbc_config datasource
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/crawl?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=GMT
-    username: root
+    url: jdbc:mysql://47.106.129.25:3306/db_chenqiang?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=GMT
+    username: chenqiang
     password: a64500507z
     type: com.zaxxer.hikari.HikariDataSource
     # Hikari will use the above plus the following to setup connection pooling

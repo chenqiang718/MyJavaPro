@@ -4,11 +4,14 @@ package com.cq.springboot.Model;
  * @Author: 陈强
  * @Date: 2018/8/24 14:17
  * @Version 1.0
+ * 用户
  */
 public class User {
     private int id;
     private String name;
     private int age;
+    private String password;
+    private int roleId;
 
     public int getId() {
         return id;
@@ -34,12 +37,20 @@ public class User {
         this.age = age;
     }
 
-    @Override
-    public String toString() {
-        return "UserDao{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                '}';
+    public String getPassword() {
+        return password;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
 }

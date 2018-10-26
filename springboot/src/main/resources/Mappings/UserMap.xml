@@ -4,4 +4,8 @@
     <select id="getAllUser" resultType="com.cq.springboot.Model.User">
         SELECT * FROM tb_user;
     </select>
+
+    <select id="getUser" resultType="com.cq.springboot.Model.User">
+        SELECT * FROM tb_user WHERE name=#{name};
+    </select>
 </mapper>

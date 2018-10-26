@@ -21,6 +21,10 @@ public class Result {
         this(success,null,data);
     }
 
+    public Result(String message){
+        this(false,message,null);
+    }
+
     public Result(boolean success, String message, Object data) {
         this.success = success;
         this.message = message;

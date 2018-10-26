@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cq.springboot.Dao.RoleDao">
+    <insert id="addRole">
+        INSERT INTO tb_role (id,permissions,rolename) VALUES (#(role.id),#{role.permissions},#{role.rolename});
+    </insert>
+
+    <update id="updateRole">
+        UPDATE tb_role SET permissions=#{role.permissions},rolename=#{role.rolename} WHERE id=#{role.id};
+    </update>
+
+    <delete id="deleteRole">
+        DELETE tb_role WHERE id=#{id};
+    </delete>
+
+    <select id="getRole" resultType="com.cq.springboot.Model.Role">
+        SELECT * FROM tb_role WHERE id=#{id};
+    </select>
+</mapper>

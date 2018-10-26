@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cq.springboot.Dao.PermissionDao">
+    <insert id="addPermission">
+        INSERT INTO tb_permission (id,permission) VALUES (#(permission.id),#{permission.permission});
+    </insert>
+
+    <update id="updatePermissione">
+        UPDATE tb_permission SET permission=#{permission.permission} WHERE id=#{permission.id};
+    </update>
+
+    <delete id="deletePermission">
+        DELETE tb_permission WHERE id=#{id};
+    </delete>
+
+    <select id="getpermission" resultType="com.cq.springboot.Model.Permission">
+        SELECT * FROM tb_permission WHERE id=#{id};
+    </select>
+</mapper>

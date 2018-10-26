@@ -1,6 +1,7 @@
 package com.cq.springboot.Dao;
 
 import com.cq.springboot.Model.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +16,6 @@ import java.util.List;
 public interface UserDao {
 
     List<User> getAllUser();
+
+    User getUser(@Param("name") String name);
 }

@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface IUserService {
     List<User> getAllUser();
+    User getUser(String name);
 }

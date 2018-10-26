@@ -1,5 +1,6 @@
 package com.cq.springboot.Controller;
 
+import com.cq.springboot.Model.Result;
 import com.cq.springboot.properties.StudentPropeties;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +24,17 @@ public class ControllerTest {
     @ApiOperation(value = "Hello测试接口",notes = "测试")
     @ResponseBody
     @RequestMapping("/Hello")
-    public String SayHello() throws UnsupportedEncodingException {
+    public Result SayHello() throws UnsupportedEncodingException {
         String name=studentPropeties.getName();
         System.out.println(name);
-        return "出错了:"+name;
+        return new Result("出错了:"+name);
     }
 
     @ApiOperation(value = "hello的测试接口",notes = "测试")
     @RequestMapping("/hello")
-    public String SayHelloHtml(){
+    public Result SayHelloHtml(){
         int i=1/0;
-        return "Hello";
+        return new Result(true,"Hello");
     }
 
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
