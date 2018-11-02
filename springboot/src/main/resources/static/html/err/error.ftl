@@ -7,11 +7,7 @@
 <body>
 这是错误页
 <div>
-    错误信息: <p id="msg"></p>
+    错误信息: <p id="msg">${msg}</p>
 </div>
-<script>
-    var msgdom = document.getElementById("msg");
-    msgdom.append(msg);
-</script>
 </body>
 </html>

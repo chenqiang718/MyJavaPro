@@ -7,7 +7,6 @@ import com.cq.springboot.Seivice.IRoleService;
 import com.cq.springboot.Seivice.IUserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.Permission;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -47,7 +46,6 @@ public class MyRealm extends AuthorizingRealm {
             String token = (String) authenticationToken.getPrincipal();
             System.out.println("+++++++++++++++++");
             System.out.println("token:"+token);
-            //String token=(String)authenticationToken.getPrincipal();
             User user=userService.getUser(token);
             if(user==null)
                 return null;

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <#assign ctx=request.contextPath/>
     <meta charset="UTF-8">
     <title>index</title>
 </head>
@@ -11,5 +12,6 @@
     密码：<input type="password" name="password" value="123456"/>
     <input type="submit" value="提交"/>
 </form>
+上下文路径:${ctx}
 </body>
 </html>

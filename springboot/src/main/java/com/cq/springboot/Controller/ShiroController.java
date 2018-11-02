@@ -18,12 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 public class ShiroController {
     @RequestMapping("/login")
     public ModelAndView login(String username, String password){
-        ModelAndView view=new ModelAndView("err/error");
+        ModelAndView view=new ModelAndView("html/err/error");
         Subject subject=SecurityUtils.getSubject();
         UsernamePasswordToken token=new UsernamePasswordToken(username, password);
         try{
             subject.login(token);
-            view.setViewName("success");
+            view.setViewName("html/success");
             return view;
         }catch (IncorrectCredentialsException e) {
             view.addObject("msg", "登录密码错误");
@@ -62,7 +62,7 @@ public class ShiroController {
 
     @RequestMapping({"/index","/"})
     public String index(){
-        return "index";
+        return "html/index";
     }
 
 }

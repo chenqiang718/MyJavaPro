@@ -2,10 +2,10 @@ student:
     name: 陈强
     age: "18"
 spring:
-  mvc:
-    view:
-      prefix: /html/
-      suffix: .html
+  freemarker:
+    template-loader-path: classpath:/static
+    request-context-attribute: request
+    expose-request-attributes: true
   http:
     encoding:
       charset: utf-8
