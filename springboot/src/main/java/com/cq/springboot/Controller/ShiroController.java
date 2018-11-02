@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -17,10 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class ShiroController {
     @RequestMapping("/login")
-    public ModelAndView login(String username, String password){
+    public ModelAndView login(HttpServletRequest request){
         ModelAndView view=new ModelAndView("html/err/error");
         Subject subject=SecurityUtils.getSubject();
-        UsernamePasswordToken token=new UsernamePasswordToken(username, password);
+        UsernamePasswordToken token=new UsernamePasswordToken(request.getParameter("username"), request.getParameter("password"));
         try{
             subject.login(token);
             view.setViewName("html/success");

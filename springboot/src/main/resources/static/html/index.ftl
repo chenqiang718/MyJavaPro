@@ -7,7 +7,7 @@
 </head>
 <body>
 这是主页
-<form action="/login">
+<form action="/login" method="post">
     用户名：<input type="text" name="username" value="chenqiang"/>
     密码：<input type="password" name="password" value="123456"/>
     <input type="submit" value="提交"/>

@@ -28,4 +28,5 @@ public class UserServiceImp implements IUserService {
     public User getUser(String name) {
         return userDao.getUser(name);
     }
+
 }

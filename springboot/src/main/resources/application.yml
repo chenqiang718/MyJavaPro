@@ -50,8 +50,8 @@ spring:
 server:
   tomcat:
     uri-encoding: UTF-8
-mybatis:
-  mapper-locations: classpath:Mappings/*.xml
+mybatis-plus:
   type-aliases-package: com.cq.springboot.Model
+  mapper-locations: classpath:Mappings/*.xml
 logging:
   config: classpath:logback-spring.xml

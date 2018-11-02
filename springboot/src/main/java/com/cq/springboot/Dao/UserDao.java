@@ -1,5 +1,6 @@
 package com.cq.springboot.Dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cq.springboot.Model.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.cache.annotation.EnableCaching;
@@ -13,7 +14,7 @@ import java.util.List;
  * @Version 1.0
  */
 @Repository
-public interface UserDao {
+public interface UserDao extends BaseMapper<User> {
 
     List<User> getAllUser();
 

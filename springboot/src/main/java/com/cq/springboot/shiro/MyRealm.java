@@ -39,8 +39,6 @@ public class MyRealm extends AuthorizingRealm {
     //认证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        System.out.println("--------------------------------------");
-        System.out.println("Token: "+authenticationToken.toString());
         if(authenticationToken instanceof UsernamePasswordToken){
             System.out.println("+++++++++++++Yes++++++++++++++++");
             String token = (String) authenticationToken.getPrincipal();
