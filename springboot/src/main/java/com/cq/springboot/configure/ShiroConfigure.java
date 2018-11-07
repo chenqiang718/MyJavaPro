@@ -39,6 +39,8 @@ public class ShiroConfigure {
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/error", "anon");
+        filterChainDefinitionMap.put("/html/test/**", "anon");
+        filterChainDefinitionMap.put("/websocket/**", "anon");  //websocket放行
         filterChainDefinitionMap.put("/**", "authc");
         shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilter;

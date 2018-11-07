@@ -13,5 +13,6 @@
     <input type="submit" value="提交"/>
 </form>
 上下文路径:${ctx}
+<a href="../html/test/test1.html">这是websocket测试页</a>
 </body>
 </html>

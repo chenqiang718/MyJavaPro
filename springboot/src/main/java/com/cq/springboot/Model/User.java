@@ -1,12 +1,16 @@
 package com.cq.springboot.Model;
 
+import java.io.Serializable;
+
 /**
  * @Author: 陈强
  * @Date: 2018/8/24 14:17
  * @Version 1.0
  * 用户
  */
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 42L;
+
     private int id;
     private String name;
     private int age;
