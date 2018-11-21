@@ -2,6 +2,7 @@ package com.cq.springboot.Controller;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ public class ShiroController {
     public ModelAndView login(HttpServletRequest request){
         ModelAndView view=new ModelAndView("html/err/error");
         Subject subject=SecurityUtils.getSubject();
+        System.out.println(new Md5Hash(request.getParameter("password")).toString());
         UsernamePasswordToken token=new UsernamePasswordToken(request.getParameter("username"), request.getParameter("password"));
         try{
             subject.login(token);
