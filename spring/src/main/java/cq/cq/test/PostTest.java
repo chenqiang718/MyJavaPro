@@ -57,6 +57,7 @@ public class PostTest {
             response.close(); // response关闭
             httpClient.close(); // httpClient关闭
             return str;
+            
         }
         return "";
     }
