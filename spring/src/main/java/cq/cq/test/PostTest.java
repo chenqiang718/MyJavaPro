@@ -32,13 +32,11 @@ public class PostTest {
             value=postTest.readHtml(url, map);
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
         System.out.println(value);
     }
 
-    public String readHtml(String url, Map<String,String> map) throws IOException, InterruptedException {
+    public String readHtml(String url, Map<String,String> map) throws IOException{
         String str="";
         CloseableHttpClient httpClient = HttpClients.createDefault(); // 创建httpClient实例
         HttpPost httpPost = new HttpPost(url); // 创建httpget实例
